@@ -42,6 +42,36 @@ public class LonelyTwitterActivity extends Activity {
 				saveInFile(text, new Date(System.currentTimeMillis()));
 				finish();
 
+				NormalTweet newtweet = new NormalTweet(text);
+				NormalTweet newtweet2  = new NormalTweet(text, new Date());
+
+				ImportantTweet imptweet = new ImportantTweet("this is an important tweet");
+
+				NormalTweet normtweet = new NormalTweet("this is a normal tweet");
+
+				Happy happytweet1 = new Happy("this is a happy tweet");
+				Sad sadtweet1 = new Sad("this is a sad tweet");
+
+				ArrayList<Tweet> alltweets = new ArrayList<Tweet>();
+				alltweets.add(newtweet);
+				alltweets.add(newtweet2);
+				alltweets.add(imptweet);
+				alltweets.add(normtweet);
+				alltweets.add(happytweet1);
+				alltweets.add(sadtweet1);
+
+
+
+				normtweet.getMessage();
+				imptweet.getMessage();
+
+				try{
+					newtweet.setMessage("Message too long");
+				}
+				catch(Exception e){
+					// Show an error message
+					e.printStackTrace();
+				}
 			}
 		});
 	}
