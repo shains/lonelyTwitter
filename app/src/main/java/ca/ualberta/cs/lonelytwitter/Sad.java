@@ -13,6 +13,10 @@ public class Sad extends Mood {
         super(date);
     }
 
+    Sad(String message){
+        super(message);
+    }
+
 
     public boolean isHappy(){
         return false;

@@ -16,15 +16,13 @@ public abstract class Mood {
         return date;
     }
 
-    public Mood(String message, Date date) {
+    public Mood(Date date){
+        this.date = date;
+    }
+
+    public Mood(String message) {
         this.message = message;
-        this.date = date;
     }
-
-    public Mood(Date date) {
-        this.date = date;
-    }
-
 
     public void setDate(Date date){
         this.date = date;

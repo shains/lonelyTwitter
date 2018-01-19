@@ -6,6 +6,7 @@ package ca.ualberta.cs.lonelytwitter;
 import java.util.Date;
 
 public class NormalTweet extends Tweet {
+    //
     NormalTweet(String message){
         super(message);
     }
