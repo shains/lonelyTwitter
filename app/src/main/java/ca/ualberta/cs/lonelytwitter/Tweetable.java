@@ -5,6 +5,14 @@ package ca.ualberta.cs.lonelytwitter;
  */
 
 public interface Tweetable {
+
+
     public String getMessage();
+
+    /**
+     * Sets the tweet message
+     * @param message tweet message
+     * @throws TweetTooLongException thrown if tweet exceeds 160 characters
+     */
     public void setMessage(String message) throws TweetTooLongException;
 }
