@@ -64,7 +64,7 @@ public class ElasticsearchTweetController {
                     + "        \"filtered\" : {\n"
                     + "            \"query\" : {\n"
                     + "                 \"term\" : {\n"
-                    + "                     \"message\" : \"sup\""
+                    + "                     \"message\" : \"search_parameter[0]\""
                     + "                 }\n"
                     + "            }\n"
                     + "        }\n"
