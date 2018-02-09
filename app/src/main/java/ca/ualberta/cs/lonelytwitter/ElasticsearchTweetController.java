@@ -2,12 +2,18 @@ package ca.ualberta.cs.lonelytwitter;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import io.searchbox.core.DocumentResult;
+import io.searchbox.core.Get;
 import io.searchbox.core.Index;
+import io.searchbox.core.Search;
+import io.searchbox.core.SearchResult;
 
 /**
  * Created by romansky on 10/20/16.
@@ -27,6 +33,14 @@ public class ElasticsearchTweetController {
 
                 try {
                     // where is the client?
+                    DocumentResult result = client.execute(index);
+                    if (result.isSucceeded()){
+                        tweet.setId(result.getId());
+
+                    } else {
+                        Log.i("Error","Some Error");
+                    }
+
                 }
                 catch (Exception e) {
                     Log.i("Error", "The application failed to build and send the tweets");
@@ -38,17 +52,44 @@ public class ElasticsearchTweetController {
     }
 
     // TODO we need a function which gets tweets from elastic search
-/*    public static class GetTweetsTask extends AsyncTask<String, Void, ArrayList<NormalTweet>> {
+    public static class GetTweetsTask extends AsyncTask<String, Void, ArrayList<NormalTweet>> {
         @Override
         protected ArrayList<NormalTweet> doInBackground(String... search_parameters) {
             verifySettings();
 
             ArrayList<NormalTweet> tweets = new ArrayList<NormalTweet>();
 
-                // TODO Build the query
+            String query = "{\n"
+                    + "    \"query\": {\n"
+                    + "        \"filtered\" : {\n"
+                    + "            \"query\" : {\n"
+                    + "                 \"term\" : {\n"
+                    + "                     \"message\" : \"sup\""
+                    + "                 }\n"
+                    + "            }\n"
+                    + "        }\n"
+                    + "    }\n"
+                    + "}";
 
+//            String query = "{\n"
+//                    + "    \"query\": {\n"
+//                    + "        \"term\" : {\n"
+//                    + "            \"message\" : " + search_parameters[0]
+//                    + "        }\n"
+//                    + "    }\n"
+//                    + "}";
+
+                // TODO Build the query
+            Search search = new Search.Builder(query).addIndex("testing").addType("tweet").build();
             try {
                // TODO get the results of the query
+                SearchResult result = client.execute(search);
+                if (result.isSucceeded()){
+                    List<NormalTweet> foundTweets = result.getSourceAsObjectList(NormalTweet.class);
+                    tweets.addAll(foundTweets);
+                } else {
+                    Log.i("Error","Search query failed to find anything");
+                }
             }
             catch (Exception e) {
                 Log.i("Error", "Something went wrong when we tried to communicate with the elasticsearch server!");
@@ -56,7 +97,7 @@ public class ElasticsearchTweetController {
 
             return tweets;
         }
-    }*/
+    }
 
 
 
